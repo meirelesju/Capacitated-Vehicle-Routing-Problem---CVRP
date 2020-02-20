@@ -8,9 +8,17 @@
  *
  * @author Julianny Meireles
  */
-public class Veiculo {
-    
-    static int capacidade;
-    
+public class Cliente {
+    public int id;
+    public int demanda; 
+    public boolean IsRouted;
+
+    Cliente(int id, int demanda)
+    {
+        this.id = id;
+        this.demanda = demanda;
+        this.IsRouted = false;
+    }
+
     
 }

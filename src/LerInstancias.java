@@ -24,12 +24,14 @@ import java.util.Scanner;
 public class LerInstancias {
     
     
+    static int [] clientes; 
     static int dimensao;
-    static int [][] clientes; 
     static int  id;
     static int demanda;
     static int [][] coordenadas;
-    
+    static Cliente [] listaClientes;
+    static Cliente C;
+    static int capacidade;
    static void lerValores(String file) throws FileNotFoundException, IOException{
          
         InputStream input;
@@ -50,13 +52,15 @@ public class LerInstancias {
         //Pega o valor do campo CAPACITY
         String capacity = br.readLine();
         capacity = capacity.replace("CAPACITY: ", "");
-        Veiculo.capacidade = Integer.parseInt(capacity);
+        capacidade = Integer.parseInt(capacity);
         
         //Pega os valores do DEMAND_SECTION e os distribui num array de clientes
         //O "DEMAND_SECTION" são duas colunas que contém o "id" dos clientes e suas demandas 
         
         br.readLine(); //Pula a linha com o nome "DEMAND_SECTION:/n"
-        clientes = new int [dimensao][2];
+        //clientes_demanda = new int [dimensao][2];
+        
+        listaClientes = new Cliente [dimensao];
         
         for(int i = 0; i < dimensao; i++){
             String demand = br.readLine();
@@ -66,9 +70,8 @@ public class LerInstancias {
             id = ler.nextInt();
             demanda = ler.nextInt();
 
-            clientes[i][0] = id;
-            clientes[i][1] = demanda;
-
+            C = new Cliente (id, demanda);
+            listaClientes[i] = C; 
             ler.close(); 
         }
        
@@ -76,19 +79,37 @@ public class LerInstancias {
         br.readLine(); //pula a linha com o nome EDGE_WEIGHT_SECTION
         
         
-        
+        //Pega os valores da matriz EDGE_WEIGHT_SECTION e coloca em "coordenadas"
+        coordenadas = new int [dimensao][dimensao];
+        int a;
+        for(int i=0; i<dimensao; i++) {
+
+            String coord = br.readLine();
+            Scanner ler = new Scanner(coord);
+            
+                for(int j=0; j<dimensao; j++) {
+                        a = ler.nextInt();
+                        coordenadas[i][j] = a;
+
+                }
+            ler.close();
+
+            }
+          
         }
     
     
-   public static void main(String[] args) throws IOException{
+   /*public static void main(String[] args) throws IOException{
         
       
        lerValores("P-n20-k2.txt");
        
        //System.out.println("dimensao: " + dimensao);
        //System.out.println("capacidade: "+Veiculo.capacidade);
-       System.out.println("clientes" + Arrays.toString(clientes[10]));
-       
-       
-    }
+       //System.out.println("clientes" + Arrays.toString(clientes[10]));
+       for(int i=0; i<dimensao; i++){
+       System.out.println("Cliente: "+ listaClientes[i].id + "Demanda: " + listaClientes[i].demanda);
+       }
+    }*/
+  
 }
